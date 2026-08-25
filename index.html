@@ -376,6 +376,17 @@ header .btns button:disabled{opacity:.4; cursor:default;}
 .clirow{display:flex; align-items:center; gap:10px; font-size:15px; margin-bottom:10px;}
 .clirow input{flex:1; border:1px solid var(--line); border-radius:8px; padding:7px 10px; font:inherit; font-size:14px; background:var(--card); color:var(--txt);}
 .clirow .det{font-size:13px; max-width:220px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+/* 「金鑰存在哪裡」是被問最多次的問題，答案又跟直覺相反（大家預設有後端資料庫）。
+   放進系統設定讓使用者自己看得到，作者不必每次重講一遍。
+   ⚠️ 預設收合：它比面板上任何一列都長，展開放著會把整個設定面板推長。 */
+#syPriv summary{cursor:pointer; color:var(--accent); font-size:13.5px;}
+#syPriv #syPrivB{margin-top:8px; font-size:13px; line-height:1.85; color:var(--txt);
+  background:var(--bg); border-radius:8px; padding:11px 13px;}
+#syPriv #syPrivB ul{margin:6px 0 8px; list-style:none;}
+#syPriv #syPrivB li{position:relative; padding-left:16px; margin-bottom:4px;}
+#syPriv #syPrivB li::before{content:"・"; position:absolute; left:0; color:var(--sub);}
+#syPriv #syPrivB .warn{margin-top:9px; padding:8px 11px; background:var(--card);
+  border-left:4px solid var(--gold); border-radius:6px;}
 #sysSettings .foot{display:flex; gap:10px; margin-top:14px;}
 #sysSettings .foot button{border:1px solid var(--sub); background:var(--card); color:var(--txt); border-radius:10px; padding:9px 20px; font-size:15px; font:inherit; cursor:pointer;}
 #sysSettings .foot .primary{background:var(--chair); color:#fff; border-color:var(--chair);}
@@ -409,7 +420,7 @@ header .btns button:disabled{opacity:.4; cursor:default;}
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="apple-mobile-web-app-title" content="AI 董事會">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-iTn4yj+0KqiX/1rRoKiwr9Sko4bcOO6a/FyO62RUSkE=' 'sha256-SpzLOyg2DB9N55Z4xk781c0k8VuDSua2cbQiSqG603M=' 'sha256-2FmrNUk9WbWM99c9jujOeOIwz/vSa6tujUAjBfda/G0=' 'sha256-jkWU7APZqKJcPi2nQks83rO+2lSu+po+kkqFALShUBY=' 'sha256-4orRAstYQq6EyrLeh7TY5WXBHD8S+Xlvi+JSLO9Nqtk='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' https://api.anthropic.com https://api.deepseek.com https://api.groq.com https://api.minimax.io https://api.mistral.ai https://api.moonshot.ai https://api.x.ai https://api.z.ai https://ark.cn-beijing.volces.com https://dashscope-intl.aliyuncs.com https://generativelanguage.googleapis.com https://openrouter.ai; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-iTn4yj+0KqiX/1rRoKiwr9Sko4bcOO6a/FyO62RUSkE=' 'sha256-d2WyBVjil+b9Sf28/4KKTRDkZRLvcuAmb4nOVaTUm4I=' 'sha256-2FmrNUk9WbWM99c9jujOeOIwz/vSa6tujUAjBfda/G0=' 'sha256-jkWU7APZqKJcPi2nQks83rO+2lSu+po+kkqFALShUBY=' 'sha256-DmwUEauy5fvDqeYM+GOBqs33XRM5snngTEwAxbNYAaI='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' https://api.anthropic.com https://api.deepseek.com https://api.groq.com https://api.minimax.io https://api.mistral.ai https://api.moonshot.ai https://api.x.ai https://api.z.ai https://ark.cn-beijing.volces.com https://dashscope-intl.aliyuncs.com https://generativelanguage.googleapis.com https://openrouter.ai; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
 <script>window.PWA_LICENSE = "AI 董事會 / AI Boardroom\n軟體授權條款 (Software License)\n© 2026 Fervela.ai — 保留一切權利 (All rights reserved)\n\n================================================================\n中文條款\n================================================================\n\n感謝你使用 AI 董事會。本軟體由 Fervela.ai 開發並免費提供，\n以下是使用規範，請花一分鐘看完。\n\n【你可以做的】\n\n  ✅ 免費在你自己的電腦上安裝與使用，不限次數、不限用途\n     （包含個人使用與你自己的商業決策）\n  ✅ 原樣轉傳給朋友、同事、家人\n  ✅ 為了自己使用而修改程式（例如新增角色、調整介面）\n\n【你不可以做的】\n\n  ❌ 移除或更改「Fervela.ai」品牌標示、LOGO 或版權聲明\n  ❌ 把本軟體（或其修改版）以自己或第三方的名義重新發佈\n  ❌ 販售本軟體，或將其包裝成付費產品／服務的一部分\n  ❌ 移除本授權條款檔案\n\n簡單說：自己用、原樣分享，都歡迎；但請不要把它改名換姓\n變成別人的作品，或拿去賣錢。\n\n【關於原始碼】\n\n本軟體以原始碼形式（HTML／Python）分發，這是刻意的設計——\n讓你能檢視它到底做了什麼、確認它沒有偷傳你的資料。\n可讀不等於可任意挪用：上述限制仍然適用。\n\n【免責聲明】\n\n本軟體按「現狀」提供，不附任何明示或默示的擔保。\nAI 產生的內容為決策參考，不構成專業意見；\n涉及投資、法律、醫療、房地產等重大決定，請諮詢持照專業人士。\n使用本軟體所產生的任何後果由使用者自行負責。\n\n【你的資料】\n\n本軟體在你的電腦本機執行。會議記錄只存在你的瀏覽器，\nAI 帳號憑證存在你自己的電腦，開發者不會收到任何內容。\n\n【聯絡】\n\n問題回報與授權洽詢：lynchwu99@gmail.com\n\n================================================================\nEnglish Terms (summary)\n================================================================\n\n© 2026 Fervela.ai. All rights reserved.\n\nYOU MAY: use this software free of charge on your own computers\nfor any purpose, share it with others AS-IS, and modify it for\nyour own personal use.\n\nYOU MAY NOT: remove or alter the \"Fervela.ai\" branding, logo, or\ncopyright notices; redistribute this software (or derivatives)\nunder another name or brand; sell it or bundle it into a paid\nproduct or service; or remove this license file.\n\nThe source is readable by design so you can verify what it does.\nReadable does not mean unrestricted — the terms above still apply.\n\nNO WARRANTY. Provided \"as is\". AI-generated content is for\ndecision support only and is not professional advice. For\nfinancial, legal, medical, or real-estate decisions, consult a\nlicensed professional. You are responsible for your own decisions.\n\nYOUR DATA stays on your machine: meeting records live in your\nbrowser's local storage, AI credentials live in your own system.\nThe developer receives nothing.\n\nContact: lynchwu99@gmail.com\n\n================================================================\nAI 董事會 by Fervela.ai — Research. Create. Venture Forward.\n";</script>
 <script>
 /* ==== PWA 墊片：engines.gen.js ==== */
@@ -417,7 +428,7 @@ header .btns button:disabled{opacity:.4; cursor:default;}
 // 要改型號、定價、免費層或 429 退讓順序，改 server.py 然後重跑 make_pwa.sh。
 // 慣例：models 陣列的順序＝品質順序＝免費型號壅塞時的退讓順序。
 const PWA_VERSION = "2.9";
-const PWA_BUILD = "0826-2cfc62";
+const PWA_BUILD = "0826-317717";
 const DIRECT_ENGINES = {
  "claude": {
   "label": "Claude",
@@ -2576,6 +2587,13 @@ const DIRECT_HOSTS = [
   <div class="hint" id="syHint" style="display:none"></div>
   <div class="clirow"><b id="syVerLabel">版本 Version</b><span id="syVer" class="det" style="max-width:none"></span>
     <a href="#" id="licLink">授權條款</a></div>
+  <div class="clirow" style="align-items:flex-start">
+    <b id="syPrivLabel">隱私 Privacy</b>
+    <details id="syPriv" class="det" style="max-width:none; flex:1; white-space:normal">
+      <summary id="syPrivT"></summary>
+      <div id="syPrivB"></div>
+    </details>
+  </div>
   <div class="clirow"><b id="syDataLabel">資料 Data</b><span class="det" style="max-width:none">
     <button id="backupBtn" type="button"></button>
     <button id="restoreBtn" type="button"></button>
@@ -2834,6 +2852,24 @@ zh: {
   sy_key_ph:"貼上 API Key", sy_key_set:"金鑰已設定（留空＝不變）", sy_get_key:"取得金鑰 ↗", sy_key_clear:"清除金鑰",
   mail_btn:"問題回報", ex_engines:"引擎",
   lic_link:"📄 授權條款", lic_title:"授權條款", lic_close:"關閉", x_close:"關閉（Esc）",
+  // ⚠️ 這是對外標準回覆，被問最多次的問題。用字有三個地方是刻意的，改寫時請保留：
+  //   ① 不寫「完全沒有伺服器」——網頁確實放在主機上，講死了會被懂的人抓到，
+  //      一被抓到，同一段裡真的部分也會跟著被懷疑。準確講法是「主機只送網頁、收不到金鑰」。
+  //   ② 主動講缺點（換裝置就沒了）——不先講，之後金鑰不見的人會覺得被騙。
+  //   ③ 不寫「絕對安全」——講事實（存在哪、送到哪、白名單）可以被驗證，形容詞不行。
+  sy_priv_label:"隱私 Privacy",
+  sy_priv_t:"我的 API 金鑰和會議記錄存在哪裡？",
+  sy_priv_b:'<b>金鑰不會上傳，也沒有進任何資料庫——這套軟體沒有後端。</b>'
+    + '<ul><li><b>網頁版</b>：存在你自己裝置的瀏覽器儲存空間</li>'
+    + '<li><b>電腦版</b>：存在你電腦的設定檔（Mac 在「應用程式支援」、Windows 在 AppData），'
+    + '檔案權限只有你本人讀得到</li></ul>'
+    + '網址是作者架的，但那台主機只做一件事：把網頁檔案傳給你。'
+    + '<b>它收不到你的金鑰</b>，這套軟體也沒有帳號、沒有登入、沒有資料庫。<br>'
+    + '金鑰只會從你的裝置<b>直接</b>送到該家 AI 的官方網址，程式裡寫死了白名單，送不到其他地方。'
+    + '你的會議記錄同樣只留在你的裝置。'
+    + '<div class="warn">另一面是：因為只存在你的裝置，<b>換裝置或清除瀏覽器資料就會不見</b>，'
+    + '不會自動同步。重要的會議請用上面的「備份」存成檔案；網頁版請務必按'
+    + '「分享 → 加入主畫面」，否則系統一段時間沒使用會把它清掉。</div>',
   pdf_making:"正在產生 PDF…", pdf_done:"PDF 已下載 ✓",
   send_live:"補充送出", input_live_ph:"AI 思考中——你仍可補充，送出後當輪董事會立刻帶著它重想…（Enter 送出）",
   rate_live:"已記下你的評分，接下來的發言都會參考",
@@ -3019,6 +3055,21 @@ en: {
   sy_key_ph:"Paste API key", sy_key_set:"Key saved (blank = keep)", sy_get_key:"Get a key ↗", sy_key_clear:"Clear key",
   mail_btn:"Report", ex_engines:"Engines",
   lic_link:"📄 License", lic_title:"License", lic_close:"Close", x_close:"Close (Esc)",
+  sy_priv_label:"Privacy",
+  sy_priv_t:"Where are my API keys and meeting records stored?",
+  sy_priv_b:'<b>Keys are never uploaded and never touch a database — this software has no backend.</b>'
+    + '<ul><li><b>Web version</b>: in your own device\'s browser storage</li>'
+    + '<li><b>Desktop version</b>: in a settings file on your computer (Application Support on Mac, '
+    + 'AppData on Windows), readable only by your own user account</li></ul>'
+    + 'The web address is hosted by the author, but that host does exactly one thing: send you the '
+    + 'page file. <b>It never receives your key.</b> There is no account, no sign-in, no database.<br>'
+    + 'Your key goes <b>directly</b> from your device to that AI provider\'s official endpoint, and the '
+    + 'allowed destinations are hard-coded — it cannot be sent anywhere else. Your meeting records '
+    + 'likewise stay on your device.'
+    + '<div class="warn">The flip side: because everything lives only on your device, '
+    + '<b>switching devices or clearing browser data loses it</b> — nothing syncs. Use Backup above '
+    + 'for meetings you care about, and on the web version add it to your home screen, or the system '
+    + 'may clear its storage after a period of disuse.</div>',
   pdf_making:"Generating PDF…", pdf_done:"PDF downloaded ✓",
   send_live:"Add Now", input_live_ph:"Directors are thinking — you can still add input; whoever is speaking will rethink with it (Enter to send)",
   rate_live:"Rating noted — the directors will take it into account from here on",
@@ -4956,6 +5007,10 @@ async function openSys(){
   $("#langSel").value = LANG;
   $("#themeSel").value = THEME;
   $("#syVer").textContent = `V${APPVER||"?"}（build ${SRCHASH||"?"}）`;
+  $("#syPrivLabel").textContent = t("sy_priv_label");
+  $("#syPrivT").textContent = t("sy_priv_t");
+  $("#syPrivB").innerHTML   = t("sy_priv_b");
+  $("#syPriv").open = false;   // 每次開設定都收合——它比面板任何一列都長
   const box = $("#engList");
   box.innerHTML = "";
   ENG_ORDER.forEach(k=>{
