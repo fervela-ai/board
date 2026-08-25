@@ -1,9 +1,9 @@
-/* build 0826-48aa46 */
+/* build 0826-590087 */
 /* AI 董事會 PWA — Service Worker
  * 只做「離線也打得開殼」這一件事。
  * ⚠️ 絕不快取任何 API 回應——那裡面有會議內容，而且快取住的錯誤答案比沒答案更糟。
  */
-const CACHE = "aib-shell-0826-48aa46";
+const CACHE = "aib-shell-0826-590087";
 const SHELL = ["./", "./index.html", "./manifest.webmanifest"];
 
 self.addEventListener("install", e => {
