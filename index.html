@@ -103,6 +103,18 @@ header .btns button:disabled{opacity:.4; cursor:default;}
 /* 免費＝這家不用花錢就能接（API 有免費層，或 CLI 接受免費帳號）。
    ⚠️ 只放 🆓 emoji 看不出來——使用者實測回報「註記不夠清楚」，必須有文字標籤＋底色。 */
 #wizard .wgrid .weng.wfree{border-color:var(--accent); background:rgba(0,139,139,.10);}
+/* 「什麼是 API Key」小卡：可見的只有三行，其餘收在 <details> 裡。
+   ⚠️ 刻意不用 alert／另開面板——說明要跟金鑰欄在同一個畫面，
+   使用者才能一邊看一邊做；跳走再回來就會忘記剛剛看到什麼。 */
+#wzKeyWhat{background:var(--bg); border:1px solid var(--line); border-radius:10px;
+  padding:12px 14px; margin-bottom:12px; font-size:13.5px; line-height:1.7;}
+#wzKeyWhat b{font-size:14.5px;}
+#wzKeyWhat p{margin:4px 0 0; color:var(--sub);}
+#wzKeyOnce{margin-top:9px; padding:8px 11px; border-left:4px solid var(--gold);
+  background:var(--card); border-radius:6px; color:var(--txt); font-weight:600;}
+#wzKeyMore{margin-top:9px;}
+#wzKeyMore summary{cursor:pointer; color:var(--accent); font-size:13px;}
+#wzKeyMore p{margin-top:6px; white-space:pre-line;}
 #wizard .wgrid .weng.wfree.sel{border-color:var(--accent); background:var(--accent); color:#fff;}
 .wfreetag{font-size:10.5px; font-weight:800; letter-spacing:.5px; padding:1px 7px; border-radius:8px;
           background:var(--accent); color:#fff; line-height:1.55;}
@@ -307,6 +319,40 @@ header .btns button:disabled{opacity:.4; cursor:default;}
 #tutBox .foot button{border:1px solid var(--sub); background:var(--card); color:var(--txt); border-radius:10px; padding:9px 18px; font:inherit; cursor:pointer;}
 #tutBox .foot .primary{background:var(--chair); color:#fff; border-color:var(--chair); font-weight:700;}
 #tutBox .foot #tutSkip{margin-left:auto; border:none; color:var(--sub); text-decoration:underline;}
+/* ══ 引導式導覽（把要介紹的地方框起來）══
+   ⚠️ 為什麼不用原本那個置中大面板：它「蓋住」了它正在解釋的東西——
+   使用者讀到「按最下面的輸入框」時，最下面的輸入框正被面板遮著
+   （實機回報：「看的人會完全看不懂」）。
+   做法：整頁壓暗，只把目標元素那一塊留亮，旁邊放一張小卡說明。
+   壓暗用「洞」元素的巨大 box-shadow，不用四塊拼接——縮放與捲動時
+   四塊很容易露出縫隙，box-shadow 永遠貼合。 */
+#tourHole{position:fixed; z-index:31; border-radius:10px; pointer-events:none;
+  box-shadow:0 0 0 9999px rgba(0,0,0,.62), 0 0 0 3px var(--gold);
+  transition:top .22s ease, left .22s ease, width .22s ease, height .22s ease;}
+#tourCard{position:fixed; z-index:32; width:min(360px, calc(100vw - 32px));
+  background:var(--card); color:var(--txt); border-radius:14px; padding:16px 18px;
+  box-shadow:0 14px 44px rgba(0,0,0,.34); font-size:14px; line-height:1.85;}
+#tourCard h3{font-size:16px; margin:0 0 8px;}
+#tourCard ul{margin:0; list-style:none;}
+#tourCard li{margin-bottom:7px; padding-left:18px; position:relative;}
+#tourCard li::before{content:"▸"; position:absolute; left:0; color:var(--accent); font-weight:700;}
+#tourCard .note{margin-top:10px; padding:9px 12px; background:var(--bg);
+  border-left:4px solid var(--gold); border-radius:6px; font-size:13px; line-height:1.7;}
+#tourCard .k{display:inline-block; background:var(--bg); border:1px solid var(--line);
+  border-radius:6px; padding:0 6px; font-size:13px;}
+#tourFoot{display:flex; gap:8px; align-items:center; margin-top:14px;}
+#tourFoot button{border:1px solid var(--sub); background:var(--card); color:var(--txt);
+  border-radius:10px; padding:8px 16px; font:inherit; cursor:pointer;}
+#tourFoot .primary{background:var(--chair); color:#fff; border-color:var(--chair); font-weight:700;}
+#tourFoot #tourSkip{margin-left:auto; border:none; color:var(--sub); text-decoration:underline; padding:8px 4px;}
+#tourDots{display:flex; gap:5px; margin-top:10px;}
+#tourDots i{width:6px; height:6px; border-radius:50%; background:var(--line);}
+#tourDots i.on{background:var(--chair); width:16px; border-radius:3px;}
+/* 手機：卡片一律貼在畫面底部（或頂部），不要跟著目標亂跑把自己擠出畫面 */
+@media (max-width:760px), (max-height:560px){
+  #tourCard{width:calc(100vw - 20px); left:10px!important; right:10px;
+    font-size:13.5px; padding:13px 15px;}
+}
 #settings h2,#sysSettings h2,#boardForm h2,#licBox h2,#mailBox h2,#wizard h2{padding-right:40px;}
 #settings,#sysSettings{background:var(--card); border-radius:14px; padding:22px 26px; width:min(760px,100%); position:relative;}
 #settings h2,#sysSettings h2{font-size:20px; margin-bottom:4px;}
@@ -353,7 +399,7 @@ header .btns button:disabled{opacity:.4; cursor:default;}
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="apple-mobile-web-app-title" content="AI 董事會">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-iTn4yj+0KqiX/1rRoKiwr9Sko4bcOO6a/FyO62RUSkE=' 'sha256-njaRxNWiMf8NtYbY6rK8dRA+ijXZ2G2tcyrSEd9S/tg=' 'sha256-2FmrNUk9WbWM99c9jujOeOIwz/vSa6tujUAjBfda/G0=' 'sha256-7AIB+U6C2ldmyondFz/fjD1xAplods/m0dwtjRfu9uc=' 'sha256-uPILaVKa79NyBF82CQIN4xN4ja+ArEwIXRyaupV55nw='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' https://api.anthropic.com https://api.deepseek.com https://api.groq.com https://api.minimax.io https://api.mistral.ai https://api.moonshot.ai https://api.x.ai https://api.z.ai https://ark.cn-beijing.volces.com https://dashscope-intl.aliyuncs.com https://generativelanguage.googleapis.com https://openrouter.ai; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-iTn4yj+0KqiX/1rRoKiwr9Sko4bcOO6a/FyO62RUSkE=' 'sha256-GpP5UWn1uOKDRADuMP+oNIAhSmG6nBUsALlVMABzzWQ=' 'sha256-2FmrNUk9WbWM99c9jujOeOIwz/vSa6tujUAjBfda/G0=' 'sha256-hCL1HyMe9VKpHxkdoxnSw5sPzwFf76usy23Ihvk/Up0=' 'sha256-ntHNSVrwY7gfGG5cqaDT5H9nKMlb8doiYe8sKFIJX8U='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' https://api.anthropic.com https://api.deepseek.com https://api.groq.com https://api.minimax.io https://api.mistral.ai https://api.moonshot.ai https://api.x.ai https://api.z.ai https://ark.cn-beijing.volces.com https://dashscope-intl.aliyuncs.com https://generativelanguage.googleapis.com https://openrouter.ai; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
 <script>window.PWA_LICENSE = "AI 董事會 / AI Boardroom\n軟體授權條款 (Software License)\n© 2026 Fervela.ai — 保留一切權利 (All rights reserved)\n\n================================================================\n中文條款\n================================================================\n\n感謝你使用 AI 董事會。本軟體由 Fervela.ai 開發並免費提供，\n以下是使用規範，請花一分鐘看完。\n\n【你可以做的】\n\n  ✅ 免費在你自己的電腦上安裝與使用，不限次數、不限用途\n     （包含個人使用與你自己的商業決策）\n  ✅ 原樣轉傳給朋友、同事、家人\n  ✅ 為了自己使用而修改程式（例如新增角色、調整介面）\n\n【你不可以做的】\n\n  ❌ 移除或更改「Fervela.ai」品牌標示、LOGO 或版權聲明\n  ❌ 把本軟體（或其修改版）以自己或第三方的名義重新發佈\n  ❌ 販售本軟體，或將其包裝成付費產品／服務的一部分\n  ❌ 移除本授權條款檔案\n\n簡單說：自己用、原樣分享，都歡迎；但請不要把它改名換姓\n變成別人的作品，或拿去賣錢。\n\n【關於原始碼】\n\n本軟體以原始碼形式（HTML／Python）分發，這是刻意的設計——\n讓你能檢視它到底做了什麼、確認它沒有偷傳你的資料。\n可讀不等於可任意挪用：上述限制仍然適用。\n\n【免責聲明】\n\n本軟體按「現狀」提供，不附任何明示或默示的擔保。\nAI 產生的內容為決策參考，不構成專業意見；\n涉及投資、法律、醫療、房地產等重大決定，請諮詢持照專業人士。\n使用本軟體所產生的任何後果由使用者自行負責。\n\n【你的資料】\n\n本軟體在你的電腦本機執行。會議記錄只存在你的瀏覽器，\nAI 帳號憑證存在你自己的電腦，開發者不會收到任何內容。\n\n【聯絡】\n\n問題回報與授權洽詢：lynchwu99@gmail.com\n\n================================================================\nEnglish Terms (summary)\n================================================================\n\n© 2026 Fervela.ai. All rights reserved.\n\nYOU MAY: use this software free of charge on your own computers\nfor any purpose, share it with others AS-IS, and modify it for\nyour own personal use.\n\nYOU MAY NOT: remove or alter the \"Fervela.ai\" branding, logo, or\ncopyright notices; redistribute this software (or derivatives)\nunder another name or brand; sell it or bundle it into a paid\nproduct or service; or remove this license file.\n\nThe source is readable by design so you can verify what it does.\nReadable does not mean unrestricted — the terms above still apply.\n\nNO WARRANTY. Provided \"as is\". AI-generated content is for\ndecision support only and is not professional advice. For\nfinancial, legal, medical, or real-estate decisions, consult a\nlicensed professional. You are responsible for your own decisions.\n\nYOUR DATA stays on your machine: meeting records live in your\nbrowser's local storage, AI credentials live in your own system.\nThe developer receives nothing.\n\nContact: lynchwu99@gmail.com\n\n================================================================\nAI 董事會 by Fervela.ai — Research. Create. Venture Forward.\n";</script>
 <script>
 /* ==== PWA 墊片：engines.gen.js ==== */
@@ -361,7 +407,7 @@ header .btns button:disabled{opacity:.4; cursor:default;}
 // 要改型號、定價、免費層或 429 退讓順序，改 server.py 然後重跑 make_pwa.sh。
 // 慣例：models 陣列的順序＝品質順序＝免費型號壅塞時的退讓順序。
 const PWA_VERSION = "2.8";
-const PWA_BUILD = "0826-99d91a";
+const PWA_BUILD = "0826-8c2a1d";
 const DIRECT_ENGINES = {
  "claude": {
   "label": "Claude",
@@ -1518,6 +1564,23 @@ const DIRECT_HOSTS = [
     //    比實際可視區域高，所以最後那幾十像素永遠躲在網址列後面，捲到底也看不到。
     //    dvh＝動態視口高度，會跟著網址列縮放，這正是它被發明出來解決的問題。
     //    裝到主畫面（standalone）時沒有網址列，dvh 等於 vh，不會有副作用。
+    // ⚠️ 打字區在手機上被擠成兩排：文字框自己佔滿一行，📎🎤 與「主席發言」
+    //    又佔掉一整排——兩顆小按鈕吃掉整個橫排的高度（實機回報：「太浪費空間」）。
+    //    壓成一排：工具鍵縮小、文字框吃掉中間所有剩餘寬度、送出鍵縮到剛好放得下字。
+    //    min-width:0 是關鍵——flex 子元素預設 min-width:auto，textarea 會用內容
+    //    寬度撐開整條 flex 而換行，沒有這行怎麼調都壓不平。
+    "  #composer{flex-wrap:nowrap!important; gap:6px!important; align-items:flex-end;}",
+    "  #composer .tool{width:34px!important; height:34px!important;",
+    "    font-size:15px!important; flex:0 0 auto; padding:0!important;}",
+    "  #composer textarea{flex:1 1 auto!important; min-width:0!important;",
+    "    font-size:16px!important;}",   // 16px：iOS 低於 16px 會在聚焦時自動放大整頁
+    "  #composer #send{flex:0 0 auto; padding:9px 12px!important; font-size:14px!important;}",
+    // ⚠️ 手機上發言卡是白的、討論區底也是白的＝完全看不出邊界
+    //    （使用者兩次回報「差異不明顯」）。把討論區的底色壓深一階，
+    //    卡片維持白色，對比才出得來。用 --panel2（側邊欄同一個色），
+    //    不另外發明顏色，三種佈景主題都跟著走。
+    "  #log{background:var(--panel2)!important; padding:10px 10px!important; gap:9px!important;}",
+    "  #log > *{box-shadow:0 1px 3px rgba(0,0,0,.07);}",
     "  .ovl{height:100dvh!important;",
     "    padding-bottom:calc(30px + env(safe-area-inset-bottom))!important;}",
     // ⚠️ 「主持」牌原本是名字後面的行內小金牌，但 .sname 有 overflow:hidden，
@@ -1570,8 +1633,12 @@ const DIRECT_HOSTS = [
     // ③ 會議記錄區換底色——原本跟整頁同色，跟黃框和控制列糊成一片
     // ③ 討論區用底色凸顯；大 LOGO 在手機上把說明字擠出畫面 → 拿掉；
     //    字級對齊黃框那種大小（13.5px 左右）
-    "  #log{min-height:120px;background:var(--card)!important;",
+    // ⚠️ 這裡本來是 var(--card)＝白色，跟白色的發言卡同色，等於完全沒有邊界
+    //    （使用者兩次回報「差異不明顯」）。底色壓深一階、卡片維持白色再加一點
+    //    陰影，對比才出得來。用既有的 --panel2（側邊欄同色），三種佈景主題都跟著走。
+    "  #log{min-height:120px;background:var(--panel2)!important;",
     "    border-radius:14px 14px 0 0;margin-top:4px;font-size:13.5px!important;}",
+    "  #log > *{box-shadow:0 1px 3px rgba(0,0,0,.08);}",
     "  #log #empty .big{display:none!important;}",
     // 「按 Ctrl 和 + 放大」是桌機鍵盤快捷鍵，手機根本沒有 Ctrl 鍵
     "  #log #empty .zoomtip{display:none!important;}",
@@ -2058,7 +2125,10 @@ const DIRECT_HOSTS = [
   // 但標題要標「手機版」，否則使用者看到 V2.8 分不出自己開的是哪一個
   // （實機回報：「版本寫 V2.8?」）。桌機版的 V2.8 是要下載的 zip，
   // 手機版的 V2.8 是這個網址，兩者出貨時機不同、內容也可能差幾個手機專屬修正。
-  function markMobileTitle() {
+  // ⚠️ 已停用：實機（Android）上「V2.8 手機版 · by Fervela.ai」一行放不下，
+  //    Fervela.ai 被擠到第二行，頁首變成三行、吃掉會議記錄的空間。
+  //    版本識別改由系統設定裡的 build 指紋負責（0826-xxxxxx），那裡空間夠。
+  function markMobileTitle() {   // eslint-disable-line no-unused-vars
     var el = document.getElementById("appTitle");
     if (!el || el.__fvkTitle) return;
     el.__fvkTitle = true;
@@ -2073,6 +2143,50 @@ const DIRECT_HOSTS = [
     };
     // 標題會被 applyLang／renderHeader 重畫，一次性改會被蓋回去。
     new MutationObserver(paint).observe(el, { childList: true, subtree: true });
+    paint();
+  }
+
+  // ⚠️ 套用「會議室」時，每組角色都寫死了引擎（多半是 claude／gpt）——那兩家
+  //    在手機上一家都不能用，於是三席全部退讓到**同一家**（清單第一個＝OpenRouter），
+  //    三位董事跑的是同一個模型，等於複製同一個人（實機截圖：三席都是 GLM 5.2）。
+  //    使用者要的是：主席固定 OpenRouter（它要讀最多字、做共識評估與報告），
+  //    其餘董事分給 Groq、Gemini，讓觀點真的來自不同模型。
+  function spreadFreeEngines() {
+    var sel = document.getElementById("roomSel");
+    if (!sel || sel.__fvkSpread) return;
+    sel.__fvkSpread = true;
+    // 屬性型的 onchange（桌機那支）先跑，這個 addEventListener 後跑——
+    // 所以此時 MEMBERS 已經被會議室換好了，我們只重新分配引擎。
+    sel.addEventListener("change", function () {
+      var free = ["openrouter", "groq", "gemini"].filter(function (k) {
+        var e = DIRECT_ENGINES[k];
+        return e && e.cors && e.free;
+      });
+      if (free.length < 2 || typeof MEMBERS === "undefined" || !MEMBERS.length) return;
+      MEMBERS.forEach(function (m, i) {
+        // 手機上能用的只有這幾家；本來就指定到其中一家的維持不動
+        if (free.indexOf(m.engine) >= 0) return;
+        m.engine = free[i % free.length];
+      });
+      try { saveAll(); renderAll(); } catch (e) {}
+    });
+  }
+
+  // ⚠️ 打字區壓成一排之後，文字框只剩約一半寬度，而預設提示是
+  //    「以主席身分發言…（Enter 送出，Shift+Enter 換行）」——擠成三行還被切掉。
+  //    而且那句話在手機上本來就是錯的：**手機鍵盤沒有 Shift+Enter**。
+  //    改成只留前半句，一行放得下，也不再教一個做不到的操作。
+  function shortPlaceholder() {
+    var ta = document.getElementById("input");
+    if (!ta || ta.__fvkPh) return;
+    ta.__fvkPh = true;
+    var paint = function () {
+      var zh = typeof LANG === "undefined" || LANG === "zh";
+      var want = zh ? "以主席身分發言…" : "Speak as Chair…";
+      if (ta.placeholder !== want) ta.placeholder = want;
+    };
+    // applyLang 會把提示字換回長版，用觀察器盯著 placeholder 屬性
+    new MutationObserver(paint).observe(ta, { attributes: true, attributeFilter: ["placeholder"] });
     paint();
   }
 
@@ -2147,9 +2261,9 @@ const DIRECT_HOSTS = [
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", function () {
-      a2hsBar(); honestPdfMessage(); honestWizardText(); watchSettings(); mountDrawer(); slimHeader(); mountMenuExtras(); reorderEngines(); freeDefaultSeats(); repaintText(); rewireInlineHandlers(); showModelOnSeats(); touchSwap(); honestMicError(); markMobileTitle(); setTimeout(noEngineModal, 400);
+      a2hsBar(); honestPdfMessage(); honestWizardText(); watchSettings(); mountDrawer(); slimHeader(); mountMenuExtras(); reorderEngines(); freeDefaultSeats(); repaintText(); rewireInlineHandlers(); showModelOnSeats(); touchSwap(); honestMicError(); spreadFreeEngines(); shortPlaceholder(); setTimeout(noEngineModal, 400);
     });
-  } else { a2hsBar(); honestPdfMessage(); honestWizardText(); watchSettings(); mountDrawer(); slimHeader(); mountMenuExtras(); reorderEngines(); freeDefaultSeats(); repaintText(); rewireInlineHandlers(); showModelOnSeats(); touchSwap(); honestMicError(); markMobileTitle(); setTimeout(noEngineModal, 400); }
+  } else { a2hsBar(); honestPdfMessage(); honestWizardText(); watchSettings(); mountDrawer(); slimHeader(); mountMenuExtras(); reorderEngines(); freeDefaultSeats(); repaintText(); rewireInlineHandlers(); showModelOnSeats(); touchSwap(); honestMicError(); spreadFreeEngines(); shortPlaceholder(); setTimeout(noEngineModal, 400); }
 })();
 
 </script>
@@ -2285,6 +2399,12 @@ const DIRECT_HOSTS = [
       </div>
       <div class="wplan" id="wzPlan"></div>
       <div id="wzApiBox" style="display:none">
+        <div id="wzKeyWhat">
+          <b id="wzKeyWhatT"></b>
+          <p id="wzKeyWhatB"></p>
+          <div id="wzKeyOnce"></div>
+          <details id="wzKeyMore"><summary id="wzKeyMoreT"></summary><p id="wzKeyMoreB"></p></details>
+        </div>
         <a id="wzKeyUrl" href="#" target="_blank"></a>
         <input type="text" id="wzBase" placeholder="" style="width:100%; margin-bottom:6px; display:none">
         <div style="display:flex; gap:8px">
@@ -2310,6 +2430,17 @@ const DIRECT_HOSTS = [
   </div>
 </div></div>
 
+<div id="tourHole" style="display:none"></div>
+<div id="tourCard" style="display:none">
+  <h3 id="tourTitle"></h3>
+  <div id="tourBody"></div>
+  <div id="tourDots"></div>
+  <div id="tourFoot">
+    <button class="primary" id="tourNext"></button>
+    <button id="tourPrev"></button>
+    <button id="tourSkip"></button>
+  </div>
+</div>
 <div id="tutOverlay" class="ovl"><div id="tutBox">
   <h2 id="tutTitle"></h2>
   <div class="wbrand">by Fervela.ai</div>
@@ -2684,8 +2815,16 @@ zh: {
   wz_cli_gpt:"1️⃣ 按「🔧 開始安裝」，跳出黑色小視窗\n2️⃣ 視窗裡輸入 2，按 Enter\n3️⃣ 瀏覽器跳出登入頁→用你的 ChatGPT Plus/Pro 帳號登入\n4️⃣ 回來按「✅ 我裝好了」",
   wz_cli_gemini:"1️⃣ 按「🔧 開始安裝」，跳出黑色小視窗\n2️⃣ 視窗裡輸入 4，按 Enter\n3️⃣ 瀏覽器跳出登入頁→用你的個人 Google 帳號登入\n4️⃣ 回來按「✅ 我裝好了」\n（Gemini CLI 需要 Node.js；安裝器會檢查，沒有會告訴你怎麼裝）",
   wz_free_badge:"這家不用花錢就能接", wz_free_tag:"免費",
-  wz_steps_gemini:"1️⃣ 按下面綠色的按鈕（直接開啟金鑰頁）\n2️⃣ 用你的 Google 帳號登入\n3️⃣ 按右上角的「Create API key」\n4️⃣ 選專案時挑「沒有啟用帳單」的，或讓它新建一個——選到有帳單的專案，這把金鑰就變成付費的了\n5️⃣ 複製 AIza 開頭那串貼到下面，按「儲存並測試」", wz_steps_groq:"1️⃣ 按下面綠色的按鈕開啟 Groq Console\n2️⃣ 用 Google 或 GitHub 帳號登入（不用信用卡）\n3️⃣ 按「Create API Key」，隨便取個名字\n4️⃣ 複製 gsk_ 開頭那串，貼到下面（⚠️ 只會顯示這一次）\n5️⃣ 按「儲存並測試」", wz_steps_openrouter:"1️⃣ 按下面綠色的按鈕開啟 OpenRouter\n2️⃣ 用 Google 或 GitHub 帳號登入（不用信用卡）\n3️⃣ 按「Create Key」，隨便取個名字\n4️⃣ 複製 sk-or- 開頭那串，貼到下面\n5️⃣ 按「儲存並測試」",
+  wz_steps_gemini:"1️⃣ 按下面綠色的按鈕（直接開啟金鑰頁）\n2️⃣ 用你的 Google 帳號登入\n3️⃣ 按右上角的「Create API key」\n4️⃣ 選專案時挑「沒有啟用帳單」的，或讓它新建一個——選到有帳單的專案，這把金鑰就變成付費的了\n5️⃣ 複製 AIza 開頭那串貼到下面，按「儲存並測試」", wz_steps_groq:"1️⃣ 按下面綠色的按鈕開啟 Groq Console\n2️⃣ 用 Google 或 GitHub 帳號登入（不用信用卡）\n3️⃣ 按「Create API Key」，取個名字（打 ai-boardroom 就好）\n4️⃣ 複製 gsk_ 開頭那串，貼到下面（⚠️ 只會顯示這一次）\n5️⃣ 按「儲存並測試」", wz_steps_openrouter:"1️⃣ 按下面綠色的按鈕開啟 OpenRouter\n2️⃣ 用 Google 或 GitHub 帳號登入（不用信用卡）\n3️⃣ 按「Create Key」，取個名字（打 ai-boardroom 就好）\n4️⃣ 複製 sk-or- 開頭那串，貼到下面\n5️⃣ 按「儲存並測試」",
   wz_free_hint:"標「免費」的四家不用付錢也不用信用卡：GPT 用免費 ChatGPT 帳號登入即可，OpenRouter／Groq／Gemini 申請一把免費金鑰就好。只想接一家的話推薦 OpenRouter——免費層裡答題品質最好、能吃下最長的會議記錄；Groq 快但每分鐘只有 8000 token，長會議會被擋。", wz_api_free:"🆓 這家有免費額度，申請不需要信用卡。",
+  // ⚠️ 新手卡住的點不是「找不到按鈕」而是「不知道 API Key 是什麼」（實機回報）。
+  //    但字一多就沒人看——只留會導致失敗的那一句，其餘收進可展開區塊。
+  //    「只顯示一次」是唯一會讓人白做一次的資訊，所以獨立、顯眼、不可折疊。
+  wz_key_what_t:"什麼是 API Key？",
+  wz_key_what:"一把「用你的帳號去問 AI」的鑰匙。到官網申請一把貼過來就能用。",
+  wz_key_once:"金鑰只會顯示一次，看到就先貼進記事本存好。",
+  wz_key_more_t:"會被扣錢嗎？弄丟怎麼辦？",
+  wz_key_more:"免費三家不用綁信用卡，沒綁卡就不會被扣。\n弄丟就回官網重新申請一把，沒有損失。\n金鑰只存在你這台電腦，只會送到該家 AI 的官網。",
   wz_api_plan:(url)=>`1️⃣ 按下面綠色的按鈕到官方網站申請 API Key\n2️⃣ 把金鑰貼在下面的欄位\n3️⃣ 按「儲存並測試」`,
   wz_key_save:"💾 儲存並測試", wz_open_keyurl:"↗ 申請 API Key", wz_open_keyurl_free:(n)=>`↗ 前往 ${n} 官網領取免費金鑰`, wz_open_keyurl_paid:(n)=>`↗ 前往 ${n} 官網申請 API Key`,
   wz_base_ph:"API Base URL（此家需自填端點）",
@@ -2861,8 +3000,13 @@ en: {
   wz_cli_gpt:"1️⃣ Click “🔧 Start Install” — a small black window opens\n2️⃣ Type 2 and press Enter\n3️⃣ Sign in with your ChatGPT Plus/Pro account in the browser\n4️⃣ Come back and click “✅ Done”",
   wz_cli_gemini:"1️⃣ Click “🔧 Start Install” — a small black window opens\n2️⃣ Type 4 and press Enter\n3️⃣ Sign in with your personal Google account in the browser\n4️⃣ Come back and click “✅ Done”\n(Gemini CLI needs Node.js; the installer checks and tells you how if missing.)",
   wz_free_badge:"Free to connect", wz_free_tag:"FREE",
-  wz_steps_gemini:"1️⃣ Click the green button below (it opens the key page directly)\n2️⃣ Sign in with your Google account\n3️⃣ Click “Create API key” at the top right\n4️⃣ Pick a project WITHOUT billing enabled, or let it create a new one — choosing a billing-enabled project makes this a paid key\n5️⃣ Copy the string starting with AIza, paste it below, then click “Save & Test”", wz_steps_groq:"1️⃣ Click the green button below to open the Groq Console\n2️⃣ Sign in with Google or GitHub (no credit card)\n3️⃣ Click “Create API Key” and give it any name\n4️⃣ Copy the string starting with gsk_ and paste it below (⚠️ shown only once)\n5️⃣ Click “Save & Test”", wz_steps_openrouter:"1️⃣ Click the green button below to open OpenRouter\n2️⃣ Sign in with Google or GitHub (no credit card)\n3️⃣ Click “Create Key” and give it any name\n4️⃣ Copy the string starting with sk-or- and paste it below\n5️⃣ Click “Save & Test”",
+  wz_steps_gemini:"1️⃣ Click the green button below (it opens the key page directly)\n2️⃣ Sign in with your Google account\n3️⃣ Click “Create API key” at the top right\n4️⃣ Pick a project WITHOUT billing enabled, or let it create a new one — choosing a billing-enabled project makes this a paid key\n5️⃣ Copy the string starting with AIza, paste it below, then click “Save & Test”", wz_steps_groq:"1️⃣ Click the green button below to open the Groq Console\n2️⃣ Sign in with Google or GitHub (no credit card)\n3️⃣ Click “Create API Key” and name it anything — ai-boardroom works\n4️⃣ Copy the string starting with gsk_ and paste it below (⚠️ shown only once)\n5️⃣ Click “Save & Test”", wz_steps_openrouter:"1️⃣ Click the green button below to open OpenRouter\n2️⃣ Sign in with Google or GitHub (no credit card)\n3️⃣ Click “Create Key” and name it anything — ai-boardroom works\n4️⃣ Copy the string starting with sk-or- and paste it below\n5️⃣ Click “Save & Test”",
   wz_free_hint:"The four marked FREE need no payment and no credit card: GPT works with a free ChatGPT account; OpenRouter / Groq / Gemini each give you a free API key. If you only connect one, pick OpenRouter — best answers in the free tier and it handles the longest transcripts. Groq is the fastest but its free tier caps at 8,000 tokens per minute, so long meetings get rejected.", wz_api_free:"🆓 This provider has a free allowance and needs no credit card.",
+  wz_key_what_t:"What is an API key?",
+  wz_key_what:"A key that lets this app ask the AI using your own account. Get one from the provider's site and paste it here.",
+  wz_key_once:"The key is shown only once — copy it into a notes app before you close the page.",
+  wz_key_more_t:"Will I be charged? What if I lose it?",
+  wz_key_more:"The free providers need no credit card, and without a card you cannot be charged.\nLose it and you just create a new one — nothing else is lost.\nThe key stays on this device and is only ever sent to that provider's own site.",
   wz_api_plan:(url)=>`1️⃣ Click the green button below to get an API key from the official site\n2️⃣ Paste it in the field\n3️⃣ Click “Save & Test”`,
   wz_key_save:"💾 Save & Test", wz_open_keyurl:"↗ Get an API key", wz_open_keyurl_free:(n)=>`↗ Open ${n} to get your free key`, wz_open_keyurl_paid:(n)=>`↗ Open ${n} to get an API key`,
   wz_base_ph:"API Base URL (this provider needs a custom endpoint)",
@@ -4879,6 +5023,15 @@ function wizShowPath(){
       + (fr && fr.note ? "\n\n🆓 " + fr.note : "")
       + (e.note ? "\n\n⚠️ " + e.note : "");
     $("#wzApiBox").style.display = "";
+    // ⚠️ 「只顯示一次」對已經存過金鑰的人是雜訊，而且會讓他以為要重新申請。
+    //    只在這一家還沒有金鑰時才出現。
+    $("#wzKeyWhat").style.display = e.has_key ? "none" : "";
+    $("#wzKeyWhatT").textContent = t("wz_key_what_t");
+    $("#wzKeyWhatB").textContent = t("wz_key_what");
+    $("#wzKeyOnce").textContent  = "⚠️ " + t("wz_key_once");
+    $("#wzKeyMoreT").textContent = t("wz_key_more_t");
+    $("#wzKeyMoreB").textContent = t("wz_key_more");
+    $("#wzKeyMore").open = false;   // 每次重開精靈都收起來，不要記住上次展開
     $("#wzKey").placeholder = e.has_key ? t("sy_key_set") : t("sy_key_ph");
     $("#wzKeyUrl").href = e.key_url || "#";
     // 按鈕上寫明是哪一家，使用者才知道「下面的連結」指的是這顆
@@ -4960,9 +5113,112 @@ function tutRender(){
   $("#tutSkip").textContent = t("tut_skip");
   $("#tutSkip").style.display = tutPage<TUT_PAGES ? "" : "none";
 }
+/* ══ 引導式導覽：把要介紹的地方框起來 ══
+   沿用原本六頁的文案（已有五語版本），只換呈現方式：
+   壓暗整頁 → 把目標元素留亮 → 旁邊放小卡。
+
+   ⚠️ 目標可能不存在（例如「評分」那一列，會議還沒有任何發言時就沒有），
+      這種步驟改成「無洞」模式：不框任何東西，小卡置中，內容照舊。
+      硬指一個不存在的元素會框到 (0,0) 那個角落，比不框更難懂。 */
+const TOUR = [
+  {p:1, sel:"#composer"},                       // 輸入框＋主席發言
+  {p:2, sel:"#panel .prow2"},                   // 動作鍵與自動執行勾選
+  {p:3, sel:"#log .rate", fallback:"#log"},     // 主席評分（沒有發言時退回整個記錄區）
+  {p:4, sel:"#seats"},                          // 席位卡
+  {p:5, sel:"#boardBtn", pad:8},                // 三輪決議
+  {p:6, sel:"header .btns"},                    // 右上角功能鍵
+];
+let tourIdx = 0;
+
+function tourTarget(step){
+  let el = step.sel && document.querySelector(step.sel);
+  if (!el && step.fallback) el = document.querySelector(step.fallback);
+  return (el && el.getClientRects().length) ? el : null;
+}
+
+function tourPlace(){
+  const step = TOUR[tourIdx];
+  const hole = $("#tourHole"), card = $("#tourCard");
+  const el = tourTarget(step);
+  const pad = step.pad != null ? step.pad : 6;
+  const vw = innerWidth, vh = innerHeight;
+  const narrow = vw <= 760 || vh <= 560;
+
+  if (!el){
+    hole.style.display = "none";
+    card.style.display = "";
+    const cw = card.offsetWidth, ch = card.offsetHeight;
+    card.style.left = Math.round((vw - cw) / 2) + "px";
+    card.style.top  = Math.round((vh - ch) / 2) + "px";
+    return;
+  }
+  el.scrollIntoView({block:"nearest", inline:"nearest"});
+  const r = el.getBoundingClientRect();
+  hole.style.display = "";
+  hole.style.left   = Math.max(0, r.left - pad) + "px";
+  hole.style.top    = Math.max(0, r.top - pad) + "px";
+  hole.style.width  = Math.min(vw, r.width + pad * 2) + "px";
+  hole.style.height = Math.min(vh, r.height + pad * 2) + "px";
+
+  card.style.display = "";
+  const cw = card.offsetWidth, ch = card.offsetHeight, gap = 14;
+  // 上下擇一：哪邊空間夠就放哪邊；都不夠就放空間較大的那邊並貼齊邊界。
+  const above = r.top - pad - gap, below = vh - (r.bottom + pad + gap);
+  let top;
+  if (below >= ch) top = r.bottom + pad + gap;
+  else if (above >= ch) top = r.top - pad - gap - ch;
+  else top = below >= above ? Math.max(8, vh - ch - 8) : 8;
+  card.style.top = Math.round(top) + "px";
+  if (!narrow){
+    // 水平對齊目標中心，但不可超出畫面
+    let left = r.left + r.width / 2 - cw / 2;
+    left = Math.max(12, Math.min(left, vw - cw - 12));
+    card.style.left = Math.round(left) + "px";
+  }
+}
+
+function tourRender(){
+  const n = TOUR[tourIdx].p;
+  $("#tourTitle").textContent = t("tut_p" + n + "_t");
+  $("#tourBody").innerHTML    = t("tut_p" + n + "_b");
+  $("#tourDots").innerHTML    = TOUR.map((_,i)=>`<i class="${i===tourIdx?"on":""}"></i>`).join("");
+  $("#tourPrev").style.display = tourIdx > 0 ? "" : "none";
+  $("#tourPrev").textContent = t("tut_prev");
+  $("#tourNext").textContent = tourIdx < TOUR.length-1 ? t("tut_next") : t("tut_done");
+  $("#tourSkip").textContent = t("tut_skip");
+  $("#tourSkip").style.display = tourIdx < TOUR.length-1 ? "" : "none";
+  tourPlace();
+}
+
+function tourOpen(i){
+  // 導覽要看得到底下的畫面，所以任何蓋住畫面的面板都先關掉
+  document.querySelectorAll(".ovl.show").forEach(o=>o.classList.remove("show"));
+  tourIdx = i || 0;
+  tourRender();
+  window.addEventListener("resize", tourPlace);
+  window.addEventListener("scroll", tourPlace, true);
+  window.addEventListener("keydown", tourKey);
+}
+function tourClose(){
+  $("#tourHole").style.display = "none";
+  $("#tourCard").style.display = "none";
+  window.removeEventListener("resize", tourPlace);
+  window.removeEventListener("scroll", tourPlace, true);
+  window.removeEventListener("keydown", tourKey);
+  try{ localStorage.setItem(TUT_KEY,"1"); }catch(e){}
+}
+function tourKey(e){
+  if (e.key === "Escape"){ tourClose(); return; }
+  if (e.key === "ArrowRight") $("#tourNext").click();
+  if (e.key === "ArrowLeft")  $("#tourPrev").click();
+}
+$("#tourNext").onclick = ()=>{ if (tourIdx < TOUR.length-1){ tourIdx++; tourRender(); } else tourClose(); };
+$("#tourPrev").onclick = ()=>{ if (tourIdx > 0){ tourIdx--; tourRender(); } };
+$("#tourSkip").onclick = tourClose;
+
 function tutOpen(page){
-  tutPage = page || 1; tutRender();
-  $("#tutOverlay").classList.add("show");
+  // 教學一律走導覽模式——原本的置中面板會蓋住它正在解釋的東西。
+  tourOpen((page || 1) - 1);
 }
 function tutClose(){
   $("#tutOverlay").classList.remove("show");
