@@ -222,6 +222,34 @@ header .btns button:disabled{opacity:.4; cursor:default;}
 .msg.must{border-left-width:6px; box-shadow:0 0 0 1px var(--gold) inset;}
 .msg .ops button{background:none; border:none; color:var(--sub); font-size:12px; cursor:pointer; padding:0; text-decoration:underline;}
 .msg .ops button:hover{color:var(--txt);}
+/* ══ 逐段標記：主席對每一段／每一句表態 ══
+   ⚠️ 為什麼需要：原本只有整則 1–5 分，但主席真正想說的是
+   「這一段對、那一段不對」——整則打分等於把細節磨掉，
+   使用者只好一直複製貼上（實機回報）。
+   ⚠️ 勾叉**不可以只在 hover 出現**：觸控裝置沒有 hover＝等於不存在。
+   這個坑已經踩過兩次（席位卡的 ✕、會議列表的 📍🗑）。常駐半透明，選中才實心。 */
+.mkU{position:relative;}
+.mkU.yes{background:rgba(0,139,139,.09); border-radius:5px;
+  box-shadow:0 0 0 3px rgba(0,139,139,.09);}
+.mkU.no{background:rgba(200,60,60,.07); border-radius:5px;
+  box-shadow:0 0 0 3px rgba(200,60,60,.07); opacity:.72;}
+.mk{display:inline-flex; gap:2px; vertical-align:middle; margin-left:6px;
+  white-space:nowrap; user-select:none;}
+.mk button{border:1px solid var(--line); background:var(--card); color:var(--sub);
+  border-radius:6px; width:22px; height:22px; line-height:1; font-size:12px;
+  padding:0; cursor:pointer; opacity:.5; transition:opacity .12s, background .12s;}
+.mk button:hover{opacity:1;}
+.mk button.on{opacity:1; color:#fff; font-weight:700;}
+.mk button.on[data-v="1"]{background:var(--accent); border-color:var(--accent);}
+.mk button.on[data-v="-1"]{background:var(--red); border-color:var(--red);}
+.mkSwitch{display:inline-flex; border:1px solid var(--line); border-radius:7px;
+  overflow:hidden; margin-left:auto;}
+.mkSwitch button{border:0!important; background:var(--card); color:var(--sub);
+  font-size:11.5px; padding:2px 8px!important; text-decoration:none!important; cursor:pointer;}
+.mkSwitch button.on{background:var(--chair); color:#fff; font-weight:700;}
+@media (max-width:760px){
+  .mk button{width:26px; height:26px; font-size:13px;}
+}
 .typing{max-width:960px; width:100%; margin:0 auto; color:var(--txt); font-size:13px; display:flex; align-items:center; gap:8px;}
 .typing .dots i{display:inline-block; width:6px; height:6px; margin-right:3px; border-radius:50%; background:var(--accent); animation:aibblink 1.2s infinite;}
 .typing .dots i:nth-child(2){animation-delay:.2s} .typing .dots i:nth-child(3){animation-delay:.4s}
@@ -420,7 +448,7 @@ header .btns button:disabled{opacity:.4; cursor:default;}
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="apple-mobile-web-app-title" content="AI 董事會">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-iTn4yj+0KqiX/1rRoKiwr9Sko4bcOO6a/FyO62RUSkE=' 'sha256-rjO5ppOraJApSUuTRvcDM5cJd+771cyIKHXnnv6YBCU=' 'sha256-oKuhft/yKHAvwuqXuDTmnwtFDcJ0wPxY56arW/nFeVU=' 'sha256-sBiIKcf9j6M8OwgeS5qGrwAYtxwiPevlDozR+BND3uU=' 'sha256-YB5JTHif3APa3xjwMeDiW2+kiui7xhGrY+AO2vrQv+s='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' https://api.anthropic.com https://api.deepseek.com https://api.groq.com https://api.minimax.io https://api.mistral.ai https://api.moonshot.ai https://api.x.ai https://api.z.ai https://ark.cn-beijing.volces.com https://dashscope-intl.aliyuncs.com https://generativelanguage.googleapis.com https://openrouter.ai; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-iTn4yj+0KqiX/1rRoKiwr9Sko4bcOO6a/FyO62RUSkE=' 'sha256-raPcA6FHK3LXrCGCWpqq+ns8AWGXdkOZGFnxbzE1UOk=' 'sha256-oKuhft/yKHAvwuqXuDTmnwtFDcJ0wPxY56arW/nFeVU=' 'sha256-sBiIKcf9j6M8OwgeS5qGrwAYtxwiPevlDozR+BND3uU=' 'sha256-92Z23yqJrJApF38uTzqS7jlHSFibyhaCWUdIaK7u71A='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' https://api.anthropic.com https://api.deepseek.com https://api.groq.com https://api.minimax.io https://api.mistral.ai https://api.moonshot.ai https://api.x.ai https://api.z.ai https://ark.cn-beijing.volces.com https://dashscope-intl.aliyuncs.com https://generativelanguage.googleapis.com https://openrouter.ai; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
 <script>window.PWA_LICENSE = "AI 董事會 / AI Boardroom\n軟體授權條款 (Software License)\n© 2026 Fervela.ai — 保留一切權利 (All rights reserved)\n\n================================================================\n中文條款\n================================================================\n\n感謝你使用 AI 董事會。本軟體由 Fervela.ai 開發並免費提供，\n以下是使用規範，請花一分鐘看完。\n\n【你可以做的】\n\n  ✅ 免費在你自己的電腦上安裝與使用，不限次數、不限用途\n     （包含個人使用與你自己的商業決策）\n  ✅ 原樣轉傳給朋友、同事、家人\n  ✅ 為了自己使用而修改程式（例如新增角色、調整介面）\n\n【你不可以做的】\n\n  ❌ 移除或更改「Fervela.ai」品牌標示、LOGO 或版權聲明\n  ❌ 把本軟體（或其修改版）以自己或第三方的名義重新發佈\n  ❌ 販售本軟體，或將其包裝成付費產品／服務的一部分\n  ❌ 移除本授權條款檔案\n\n簡單說：自己用、原樣分享，都歡迎；但請不要把它改名換姓\n變成別人的作品，或拿去賣錢。\n\n【關於原始碼】\n\n本軟體以原始碼形式（HTML／Python）分發，這是刻意的設計——\n讓你能檢視它到底做了什麼、確認它沒有偷傳你的資料。\n可讀不等於可任意挪用：上述限制仍然適用。\n\n【免責聲明】\n\n本軟體按「現狀」提供，不附任何明示或默示的擔保。\nAI 產生的內容為決策參考，不構成專業意見；\n涉及投資、法律、醫療、房地產等重大決定，請諮詢持照專業人士。\n使用本軟體所產生的任何後果由使用者自行負責。\n\n【你的資料】\n\n本軟體在你的電腦本機執行。會議記錄只存在你的瀏覽器，\nAI 帳號憑證存在你自己的電腦，開發者不會收到任何內容。\n\n【聯絡】\n\n問題回報與授權洽詢：lynchwu99@gmail.com\n\n================================================================\nEnglish Terms (summary)\n================================================================\n\n© 2026 Fervela.ai. All rights reserved.\n\nYOU MAY: use this software free of charge on your own computers\nfor any purpose, share it with others AS-IS, and modify it for\nyour own personal use.\n\nYOU MAY NOT: remove or alter the \"Fervela.ai\" branding, logo, or\ncopyright notices; redistribute this software (or derivatives)\nunder another name or brand; sell it or bundle it into a paid\nproduct or service; or remove this license file.\n\nThe source is readable by design so you can verify what it does.\nReadable does not mean unrestricted — the terms above still apply.\n\nNO WARRANTY. Provided \"as is\". AI-generated content is for\ndecision support only and is not professional advice. For\nfinancial, legal, medical, or real-estate decisions, consult a\nlicensed professional. You are responsible for your own decisions.\n\nYOUR DATA stays on your machine: meeting records live in your\nbrowser's local storage, AI credentials live in your own system.\nThe developer receives nothing.\n\nContact: lynchwu99@gmail.com\n\n================================================================\nAI 董事會 by Fervela.ai — Research. Create. Venture Forward.\n";</script>
 <script>
 /* ==== PWA 墊片：engines.gen.js ==== */
@@ -428,7 +456,7 @@ header .btns button:disabled{opacity:.4; cursor:default;}
 // 要改型號、定價、免費層或 429 退讓順序，改 server.py 然後重跑 make_pwa.sh。
 // 慣例：models 陣列的順序＝品質順序＝免費型號壅塞時的退讓順序。
 const PWA_VERSION = "2.9";
-const PWA_BUILD = "0826-1d7c1d";
+const PWA_BUILD = "0826-78d350";
 const DIRECT_ENGINES = {
  "claude": {
   "label": "Claude",
@@ -2964,6 +2992,9 @@ zh: {
   sy_key_ph:"貼上 API Key", sy_key_set:"金鑰已設定（留空＝不變）", sy_get_key:"取得金鑰 ↗", sy_key_clear:"清除金鑰",
   mail_btn:"問題回報", ex_engines:"引擎",
   lic_link:"📄 授權條款", lic_title:"授權條款", lic_close:"關閉", x_close:"關閉（Esc）",
+  mk_yes:"我同意這一段", mk_no:"我不同意這一段",
+  mk_unit_p:"段", mk_unit_s:"句",
+  mk_unit_hint:"標記的單位：段＝每一段／每一條；句＝每一句。兩種標記各自保留。",
   // ⚠️ 這是對外標準回覆，被問最多次的問題。用字有三個地方是刻意的，改寫時請保留：
   //   ① 不寫「完全沒有伺服器」——網頁確實放在主機上，講死了會被懂的人抓到，
   //      一被抓到，同一段裡真的部分也會跟著被懷疑。準確講法是「主機只送網頁、收不到金鑰」。
@@ -3167,6 +3198,9 @@ en: {
   sy_key_ph:"Paste API key", sy_key_set:"Key saved (blank = keep)", sy_get_key:"Get a key ↗", sy_key_clear:"Clear key",
   mail_btn:"Report", ex_engines:"Engines",
   lic_link:"📄 License", lic_title:"License", lic_close:"Close", x_close:"Close (Esc)",
+  mk_yes:"I agree with this passage", mk_no:"I disagree with this passage",
+  mk_unit_p:"¶", mk_unit_s:"S",
+  mk_unit_hint:"Marking unit: ¶ = per paragraph/bullet, S = per sentence. Marks are kept separately for each.",
   sy_priv_label:"Privacy",
   sy_priv_t:"Where are my API keys and meeting records stored?",
   sy_priv_b:'<b>Keys are never uploaded and never touch a database — this software has no backend.</b>'
@@ -3590,7 +3624,7 @@ function rateTag(m){
 const TRANSCRIPT_MAX = 60000;  // 約略上限，避免長會議把模型的 context 撐爆
 function transcript(upto){
   const list = (upto===undefined ? LOG : LOG.slice(0,upto)).filter(m=>!m.error);
-  const parts = list.map(m=>`【${m.who}】${rateTag(m)}\n${m.text}`);
+  const parts = list.map(m=>`【${m.who}】${rateTag(m)}\n${m.text}${markTag(m)}`);
   let full = parts.join("\n\n");
   if (full.length <= TRANSCRIPT_MAX) return full;
   // 超長時保留：開頭議題 ＋ 所有★必收錄 ＋ 最近的討論
@@ -3617,16 +3651,114 @@ function transcript(upto){
   return head.concat(note, musts, tail).join("\n\n");
 }
 // 附在提示詞尾端的規則：只有真的有評分時才加，避免無謂佔用篇幅
+/* ══ 逐段標記 ══════════════════════════════════════════════
+   主席可以對董事發言的**每一段（或每一句）**打勾／打叉。
+   單位存在 msg.markUnit（"p"＝段／條列、"s"＝句），預設由 MARK_UNIT 決定。
+   標記存 msg.marks[unit][索引] = {v:1|-1, t:"該段文字"}。
+   **同時存索引與文字**：索引給畫面還原用，文字給逐字稿用——
+   只存索引的話，哪天渲染規則一改，所有標記就會對到錯的段落。 */
+const MARK_KEY = "aib_mark_unit";
+let MARK_UNIT = (()=>{ try{ return localStorage.getItem(MARK_KEY)==="s" ? "s" : "p"; }catch(e){ return "p"; } })();
+
+// 一段可標記的單位：段落、條列項、小標題、引言、程式碼區塊。
+// 巢狀的要濾掉（例如 <li> 裡面又包 <p>，只留最內層那個，否則會出現兩組勾叉）。
+function markableBlocks(root){
+  const all = [...root.querySelectorAll("p, li, h3, h4, h5, blockquote, pre")];
+  return all.filter(el => !all.some(o => o !== el && el.contains(o)));
+}
+
+// 句模式：把區塊內的文字切成句子，每句包一層 span。
+// ⚠️ 用 TreeWalker 逐個文字節點處理，不動 <strong>/<em>/<code> 這些行內標籤——
+//    直接對 innerHTML 做字串切割會把標籤切斷，整段就爛了。
+function wrapSentences(el){
+  const out = [];
+  let cur = document.createElement("span");
+  cur.className = "mkU";
+  const flush = ()=>{ if (cur.childNodes.length){ out.push(cur); } cur = document.createElement("span"); cur.className = "mkU"; };
+  [...el.childNodes].forEach(node=>{
+    if (node.nodeType === 3){
+      // 句尾標點後面切一刀（標點留在前一句）
+      const parts = node.nodeValue.split(/(?<=[。！？!?；;])/);
+      parts.forEach((txt, i)=>{
+        if (txt) cur.appendChild(document.createTextNode(txt));
+        if (i < parts.length - 1) flush();
+      });
+    } else {
+      cur.appendChild(node.cloneNode(true));   // 行內標籤整塊搬，不切開
+    }
+  });
+  flush();
+  el.innerHTML = "";
+  out.forEach(sp=>el.appendChild(sp));
+  return out;
+}
+
+function applyMarks(bodyEl, msg){
+  const unit = msg.markUnit || MARK_UNIT;
+  msg.marks = msg.marks || {};
+  const store = msg.marks[unit] = msg.marks[unit] || {};
+  const blocks = markableBlocks(bodyEl);
+  if (!blocks.length) return;
+  let units = [];
+  if (unit === "s") blocks.forEach(b=>{ units = units.concat(wrapSentences(b)); });
+  else { blocks.forEach(b=>b.classList.add("mkU")); units = blocks; }
+
+  units.forEach((el, i)=>{
+    // ⚠️ 一定要在把勾叉按鈕加進去**之前**取文字，否則存下來的句子尾巴
+    //    會黏著「✓✗」兩個符號，然後原樣被送進逐字稿給 AI 看。
+    const baseText = (el.textContent || "").trim().slice(0, 160);
+    const rec = store[i];
+    if (rec && rec.v === 1) el.classList.add("yes");
+    if (rec && rec.v === -1) el.classList.add("no");
+    const box = document.createElement("span");
+    box.className = "mk";
+    box.innerHTML = `<button data-v="1" class="${rec&&rec.v===1?"on":""}" title="${t("mk_yes")}">✓</button>`
+                  + `<button data-v="-1" class="${rec&&rec.v===-1?"on":""}" title="${t("mk_no")}">✗</button>`;
+    box.querySelectorAll("button").forEach(b=>{
+      b.onclick = ev=>{
+        ev.stopPropagation();
+        const v = +b.dataset.v;
+        // 再點同一個＝取消
+        if (store[i] && store[i].v === v) delete store[i];
+        else store[i] = { v: v, t: baseText };
+        saveAll(); renderLog();
+        if (busy) toast(t("rate_live"));
+      };
+    });
+    el.appendChild(box);
+  });
+}
+
+// 逐字稿用：把主席的勾叉整理成一段附註接在該則發言後面
+function markTag(m){
+  const unit = m.markUnit || MARK_UNIT;
+  const store = (m.marks || {})[unit] || {};
+  const yes = [], no = [];
+  Object.keys(store).forEach(k=>{
+    const r = store[k];
+    (r.v === 1 ? yes : no).push(`「${r.t}」`);
+  });
+  if (!yes.length && !no.length) return "";
+  const zh = isZhLang();
+  let s = zh ? "\n〔主席逐段標記〕" : "\n[CHAIR'S PER-PASSAGE MARKS]";
+  if (yes.length) s += (zh ? "\n✓ 同意：" : "\n✓ Agrees: ") + yes.join("、");
+  if (no.length)  s += (zh ? "\n✗ 不同意：" : "\n✗ Disagrees: ") + no.join("、");
+  return s;
+}
+
 function rateRules(){
   const rated = LOG.some(m=>m.rate), musts = LOG.filter(m=>m.must);
-  if (!rated && !musts.length) return "";
+  const marked = LOG.some(m=>markTag(m));
+  if (!rated && !musts.length && !marked) return "";
   if (isZhLang()){
     let s = "\n\n【主席偏好訊號】逐字稿中標有〔主席評分 N/5〕的段落代表主席的認同程度：4–5 表示他重視這個方向，請往下深化並補強；1–2 表示他不買單，除非你有新證據，否則不要再重複那條路線——但**評分不是命令**，若你有更強的事實或論證，仍應堅持並說明理由（這正是本董事會存在的意義）。";
     if (musts.length) s += `\n標有〔★主席指定必須收錄〕的段落共 ${musts.length} 則，**必須**出現在你的結論／報告／決議中，不得省略或稀釋。`;
+    if (marked) s += "\n逐字稿中〔主席逐段標記〕列出的是主席**對特定段落**的表態：✓ 的那幾句他認同，請往下延伸、把它變得更具體可執行；✗ 的那幾句他不認同，除非你有新事實或更強論證，否則不要再沿著那條路走。逐段標記同樣**不是命令**——它比整則評分精確，但規則一樣：你有更強的理由就堅持，並說明為什麼。";
     return s;
   }
   let s = "\n\n[CHAIR'S PREFERENCE SIGNALS] Passages tagged 〔Chair's rating N/5〕 show how much the Chair agrees: 4–5 means he values that direction — go deeper and strengthen it; 1–2 means he isn't buying it — don't repeat that line unless you have new evidence. But **a rating is not an order**: if you hold stronger facts or arguments, keep your position and say why (that is the entire point of this board).";
   if (musts.length) s += `\nPassages tagged 〔★Chair marked MUST-INCLUDE〕 (${musts.length} of them) MUST appear in your conclusion / report / resolution — never omit or water them down.`;
+  if (marked) s += "\n[CHAIR'S PER-PASSAGE MARKS] lists the Chair's verdict on **specific passages**: the ✓ ones he agrees with — extend them and make them more concrete and actionable; the ✗ ones he does not — do not keep walking that line unless you hold new facts or a stronger argument. These marks are **not orders** either: they are more precise than a whole-message rating, but the rule is the same — if your reasoning is stronger, hold your position and say why.";
   return s;
 }
 function promptFor(m, upto){
@@ -3839,13 +3971,18 @@ function renderLog(){
       (msg.badFormat ? `<span class="rbadge bad">${t("b_badfmt")}</span>` : "");
     d.innerHTML = `<div class="who" style="color:${isChairWho(msg.who, msg)?"var(--chair)":(mm?colorOf(mm):"var(--sub)")}">${esc(msg.who)}${msg.error?t("failed"):""}${badges}<span class="time">${msg.time||""}</span></div>
       <div class="body"></div>
-      <div class="ops"><button data-op="copy">${t("copy")}</button>${(msg.report || msg.round==="R3")?`<button data-op="shareimg">${t("shareimg")}</button>`:""}${regen}<button data-op="del">${t("del")}</button></div>
+      <div class="ops"><button data-op="copy">${t("copy")}</button>${(msg.report || msg.round==="R3")?`<button data-op="shareimg">${t("shareimg")}</button>`:""}${regen}<button data-op="del">${t("del")}</button>${(isChairWho(msg.who, msg)||msg.error)?"":`<span class="mkSwitch" title="${t("mk_unit_hint")}">
+        <button data-u="p" class="${(msg.markUnit||MARK_UNIT)==="p"?"on":""}">${t("mk_unit_p")}</button>
+        <button data-u="s" class="${(msg.markUnit||MARK_UNIT)==="s"?"on":""}">${t("mk_unit_s")}</button>
+      </span>`}</div>
       ${isChairWho(msg.who, msg) || msg.error ? "" : `<div class="rate" title="${t("rate_hint")}">
         <span class="rlab">${t("rate_label")}</span>
         ${[1,2,3,4,5].map(n=>`<button class="rb${msg.rate===n?" on":""}" data-r="${n}">${n}</button>`).join("")}
         <button class="star${msg.must?" on":""}" data-star="1" title="${t("must_hint")}">★</button>
       </div>`}`;
     d.querySelector(".body").innerHTML = mdToHtml(msg.text);   // 已在 mdToHtml 內逃脫
+    // 主席自己的發言與失敗訊息不給勾叉（跟 1–5 分同一條規則）
+    if (!isChairWho(msg.who, msg) && !msg.error) applyMarks(d.querySelector(".body"), msg);
     if (msg.images && msg.images.some(x=>imgData(x))){
       const im = document.createElement("div");
       im.className = "imgs";
@@ -3865,6 +4002,16 @@ function renderLog(){
         // 評分會經 transcript() 與 rateRules() 進入後續每一則提示詞；
         // 思考中評分則從下一位董事開始生效，給一行提示避免主席以為沒作用。
         if (busy && msg.rate) toast(t("rate_live"));
+      };
+    });
+    d.querySelectorAll(".mkSwitch button").forEach(b=>{
+      b.onclick = ()=>{
+        // 切換是「這一則」的設定，同時記成往後的預設；
+        // 兩種單位的標記各自保留，切回來還在。
+        msg.markUnit = b.dataset.u;
+        MARK_UNIT = b.dataset.u;
+        try{ localStorage.setItem(MARK_KEY, MARK_UNIT); }catch(e){}
+        saveAll(); renderLog();
       };
     });
     const st = d.querySelector(".star");
