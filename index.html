@@ -222,9 +222,13 @@ header .btns button:disabled{opacity:.4; cursor:default;}
 .msg .body blockquote{margin:0 0 9px; padding:6px 12px; border-left:3px solid var(--line);
   color:var(--sub);}
 .msg .body hr{border:none; border-top:1px solid var(--line); margin:12px 0;}
-.msg .body table{border-collapse:collapse; margin:0 0 9px; font-size:.94em; display:block; overflow-x:auto;}
-.msg .body th,.msg .body td{border:1px solid var(--line); padding:5px 9px; text-align:left; vertical-align:top;}
-.msg .body th{background:var(--bg); color:var(--txt); font-weight:700;}
+.msg .body table{border-collapse:collapse; margin:2px 0 11px; font-size:.94em; display:block; overflow-x:auto;}
+.msg .body th,.msg .body td{border:1px solid var(--line); padding:6px 10px; text-align:left;
+  vertical-align:top; line-height:1.6;}
+.msg .body th{background:var(--bg); color:var(--txt); font-weight:700; white-space:nowrap;}
+/* 斑馬紋用中性灰疊色，明暗兩個主題共用一組值就夠，不必各寫一份 */
+.msg .body tbody tr:nth-child(even) td{background:rgba(127,127,127,.07);}
+.msg .body tbody td:first-child{font-weight:600; white-space:nowrap;}
 .msg.error .body{color:var(--red);}
 /* 共識未達八成時，主持人總結底下的收尾入口。刻意做成主要按鈕的樣子——
    它跟 .ops 那排（複製／刪除）不同層級：那些是善後，這顆是決定。 */
@@ -564,7 +568,7 @@ header .btns button:disabled{opacity:.4; cursor:default;}
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="apple-mobile-web-app-title" content="AI 董事會">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-O+9KWqbWrdZ1CeTj6IcGlSaFgKkbLYHrjdzf+m9SKcc=' 'sha256-PWCfVglX1SDYQd9eqCHvmw1i649EUxhRnos3wQyzeIw=' 'sha256-oKuhft/yKHAvwuqXuDTmnwtFDcJ0wPxY56arW/nFeVU=' 'sha256-yFOvi90umETnNgERzZKBH8nkmWbjl4uYMLliCZukpdE=' 'sha256-IlqfhN6kJ7TA2O3dcsLSUXx/Lm6zjrfK9CmShQjJzoU='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' https://api.anthropic.com https://api.deepseek.com https://api.groq.com https://api.minimax.io https://api.mistral.ai https://api.moonshot.ai https://api.x.ai https://api.z.ai https://ark.cn-beijing.volces.com https://dashscope-intl.aliyuncs.com https://generativelanguage.googleapis.com https://openrouter.ai; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-O+9KWqbWrdZ1CeTj6IcGlSaFgKkbLYHrjdzf+m9SKcc=' 'sha256-sf1wQhgPJqt8dOWjUO4IOoT42BVbDIXTMgQDQc77Z44=' 'sha256-oKuhft/yKHAvwuqXuDTmnwtFDcJ0wPxY56arW/nFeVU=' 'sha256-yFOvi90umETnNgERzZKBH8nkmWbjl4uYMLliCZukpdE=' 'sha256-yMMB9KTYIU4ITW2rD2sUwN3cxDFFQTnA/7fzkGu80+4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' https://api.anthropic.com https://api.deepseek.com https://api.groq.com https://api.minimax.io https://api.mistral.ai https://api.moonshot.ai https://api.x.ai https://api.z.ai https://ark.cn-beijing.volces.com https://dashscope-intl.aliyuncs.com https://generativelanguage.googleapis.com https://openrouter.ai; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
 <script>window.PWA_LICENSE = "AI 董事會 / AI Boardroom\n軟體授權條款 (Software License)\n© 2026 Fervela.ai — 保留一切權利 (All rights reserved)\n\n================================================================\n中文條款\n================================================================\n\n感謝你使用 AI 董事會。本軟體由 Fervela.ai 開發並免費提供，\n以下是使用規範，請花一分鐘看完。\n\n【你可以做的】\n\n  ✅ 免費在你自己的電腦上安裝與使用，不限次數、不限用途\n     （包含個人使用與你自己的商業決策）\n  ✅ 推薦給朋友、同事、家人——請轉傳官網連結：\n     https://fervela.ai/ai-boardroom/\n     （這樣他們拿到的永遠是最新版，也才收得到修正）\n  ✅ 為了自己使用而修改程式（例如新增角色、調整介面）\n\n【你不可以做的】\n\n  ❌ 移除或更改「Fervela.ai」品牌標示、LOGO 或版權聲明\n  ❌ 把本軟體（或其修改版）以自己或第三方的名義重新發佈\n  ❌ 販售本軟體，或將其包裝成付費產品／服務的一部分\n  ❌ 移除本授權條款檔案\n\n簡單說：自己用、推薦給別人，都歡迎；但請以轉傳官網的方式分享，\n不要自行散佈安裝檔——舊版一旦流出去，我們就沒辦法把修正送到\n那些人手上。也請不要把它改名換姓變成別人的作品，或拿去賣錢。\n\n【關於原始碼】\n\n本軟體以原始碼形式（HTML／Python）分發，這是刻意的設計——\n讓你能檢視它到底做了什麼、確認它沒有偷傳你的資料。\n可讀不等於可任意挪用：上述限制仍然適用。\n\n【免責聲明】\n\n本軟體按「現狀」提供，不附任何明示或默示的擔保。\nAI 產生的內容為決策參考，不構成專業意見；\n涉及投資、法律、醫療、房地產等重大決定，請諮詢持照專業人士。\n使用本軟體所產生的任何後果由使用者自行負責。\n\n【你的資料】\n\n會議記錄與 API 金鑰只存在你自己的裝置，開發者不會收到。\n但你提問的內容會送到你選擇的那家 AI，受該公司的隱私政策約束。\n完整說明見軟體內的「使用須知」。\n\n【聯絡】\n\n問題回報與授權洽詢：lynchwu99@gmail.com\n\n================================================================\nEnglish Terms (summary)\n================================================================\n\n© 2026 Fervela.ai. All rights reserved.\n\nYOU MAY: use this software free of charge on your own computers\nfor any purpose, recommend it to others by sharing the official\nlink (https://fervela.ai/ai-boardroom/), and modify it for your\nown personal use.\n\nPlease share the link rather than passing the installer around:\nonce an old copy is circulating we can no longer deliver fixes to\nthe people holding it.\n\nYOU MAY NOT: remove or alter the \"Fervela.ai\" branding, logo, or\ncopyright notices; redistribute this software (or derivatives)\nunder another name or brand; sell it or bundle it into a paid\nproduct or service; or remove this license file.\n\nThe source is readable by design so you can verify what it does.\nReadable does not mean unrestricted — the terms above still apply.\n\nNO WARRANTY. Provided \"as is\". AI-generated content is for\ndecision support only and is not professional advice. For\nfinancial, legal, medical, or real-estate decisions, consult a\nlicensed professional. You are responsible for your own decisions.\n\nYOUR DATA: meeting records and API keys stay on your own device and\nthe developer never receives them. What you ask, however, is sent to\nthe AI provider you chose and is governed by their privacy policy.\nSee \"Before You Start\" inside the app for the full explanation.\n\nContact: lynchwu99@gmail.com\n\n================================================================\nAI 董事會 by Fervela.ai — Research. Create. Venture Forward.\n";</script>
 <script>
 /* ==== PWA 墊片：engines.gen.js ==== */
@@ -572,7 +576,7 @@ header .btns button:disabled{opacity:.4; cursor:default;}
 // 要改型號、定價、免費層或 429 退讓順序，改 server.py 然後重跑 make_pwa.sh。
 // 慣例：models 陣列的順序＝品質順序＝免費型號壅塞時的退讓順序。
 const PWA_VERSION = "3.2";
-const PWA_BUILD = "0828-05471f";
+const PWA_BUILD = "0901-58ec6c";
 const DIRECT_ENGINES = {
  "claude": {
   "label": "Claude",
@@ -4601,12 +4605,19 @@ function mdToHtml(src){
     if (code !== null){ code.push(ln); continue; }
     if (!ln.trim()){ flushAll(); continue; }
     // 表格：|a|b| 後接 |---|---|
-    if (/^\s*\|.*\|\s*$/.test(ln) && i + 1 < lines.length && /^\s*\|[\s:|-]+\|\s*$/.test(lines[i+1])){
+    // ⚠️ 分隔行是 Markdown 規格要求的，但模型常常漏寫——漏一行，整張表就退化成
+    //    一堆帶直線的段落，比不做表格還醜。所以下一行只要也是表格列就照樣認。
+    if (/^\s*\|.*\|\s*$/.test(ln) && i + 1 < lines.length
+        && /^\s*\|.*\|\s*$/.test(lines[i+1])){
       flushAll();
-      const cells = r => r.trim().replace(/^\||\|$/g, "").split("|").map(c => mdInline(c.trim()));
+      const isSep = r => /^\s*\|[\s:|-]+\|\s*$/.test(r);
+      // 儲存格內允許 <br>：逐日排程常要在同一格塞「上午／下午」，
+      // 其餘標記照樣跳脫，不開放任意 HTML。
+      const cells = r => r.trim().replace(/^\||\|$/g, "").split("|")
+        .map(c => mdInline(c.trim()).replace(/&lt;br\s*\/?&gt;/gi, "<br>"));
       let html = "<table><thead><tr>" + cells(ln).map(c=>"<th>"+c+"</th>").join("") + "</tr></thead><tbody>";
-      i++;
-      while (i + 1 < lines.length && /^\s*\|.*\|\s*$/.test(lines[i+1])){
+      if (isSep(lines[i+1])) i++;
+      while (i + 1 < lines.length && /^\s*\|.*\|\s*$/.test(lines[i+1]) && !isSep(lines[i+1])){
         i++; html += "<tr>" + cells(lines[i]).map(c=>"<td>"+c+"</td>").join("") + "</tr>";
       }
       out.push(html + "</tbody></table>");
@@ -5503,9 +5514,9 @@ function reportDefects(txt){
 function reportPrompt(strict){
   if (LANG !== "zh")
     return (strict ? `[FORMAT REJECTED — REWRITE] Your previous output was missing: ${strict}. Heading lines must appear verbatim, and the mind map must sit inside a fenced block tagged mindmap.\n\n` : "")
-         + `Below is the full transcript of this meeting:\n\n${transcript()}\n\n——\nAs the neutral moderator, write this meeting up as a decision report in Markdown, structured exactly as follows (heading lines verbatim):\n\n# Decision Report: <choose a topic title>\n\n## One-Page Summary\n### Decision\n(The final recommendation in one or two sentences. No build-up.)\n### Action Items\n(Concrete and executable, each with a suggested deadline. Write "None" if there are none.)\n### Key Risks\n(At most three, one line each.)` + mindmapSpec() + `\n\n## Appendix: Why This Decision\n### Supporting Reasons\n(Why this conclusion, as bullet points.)\n### Options Rejected\n(Alternatives that were considered and dropped, each with a one-line reason.)\n### Open Disagreements & Minority Views\n(Who still objects to what, stated plainly. Write "None" if there are none.)\n### Assumptions\n(What the conclusion rests on; which one, if overturned, forces a re-review.)\n\nWRITING RULES:\n- The One-Page Summary must be complete enough to act on by itself — omit nothing that matters.\n- **The conclusion must land on something the Chair can do tomorrow**, never on a principle or a spec. Stopping at "find a project with numbers" or "buy a compressor type" means the task was not finished.\n- If the question is a what-to-buy / which-one / where-to-go kind that needs a concrete target, add a section before the action items:\n\n## Candidates\n(**Two or three concrete options.** One line each: name or model | biggest advantage | biggest drawback | who it suits. Tag each with your confidence: (certain) / (impression, needs checking). **End with this exact line**: "Models, prices and availability above were not verified live — check them yourself before buying.")\n\n- ⚠️ You have no web access; models and prices come from memory and may be discontinued or wrong — so list one fewer rather than inventing a specific-looking fake. If you genuinely cannot name reliable candidates, say so and give the filtering steps the Chair can use to narrow to three within an hour instead.\n- Do NOT replay the discussion. Never write who said what in which round. Include only conclusions and the reasoning that bears on the decision.\n- Add no substantive claims that did not appear in the meeting; present disagreements as they are — do not force a conclusion.\n- **Every number you yourself put in the decision or the action items must meet the same standard you applied to the directors' numbers**: if you cannot name a source, do not use it as a hard threshold — give a range or mark it as needing verification.` + reportBudget() + rateRules();
+         + `Below is the full transcript of this meeting:\n\n${transcript()}\n\n——\nAs the neutral moderator, write this meeting up as a decision report in Markdown, structured exactly as follows (heading lines verbatim):\n\n# Decision Report: <choose a topic title>\n\n## One-Page Summary\n### Decision\n(The final recommendation in one or two sentences. No build-up.)\n### Action Items\n(Concrete and executable, each with a suggested deadline. Write "None" if there are none.)\n### Key Risks\n(At most three, one line each.)` + mindmapSpec() + `\n\n## Appendix: Why This Decision\n### Supporting Reasons\n(Why this conclusion, as bullet points.)\n### Options Rejected\n(Alternatives that were considered and dropped, each with a one-line reason.)\n### Open Disagreements & Minority Views\n(Who still objects to what, stated plainly. Write "None" if there are none.)\n### Assumptions\n(What the conclusion rests on; which one, if overturned, forces a re-review.)\n\nWRITING RULES:\n- The One-Page Summary must be complete enough to act on by itself — omit nothing that matters.\n- **If the information is a table, write a table.** Day-by-day or week-by-week schedules, comparisons across two or more options, lists where every item shares the same fields — writing those as bullets forces the reader to rebuild the table in their head. Give them the table:\n\n| Date | Main session | Intensity | Notes |\n|---|---|---|---|\n| Sep 1 | … | … | … |\n\n  Rules: **five columns maximum** (the report is A4 portrait; a sixth column turns to mush); put the primary index in the first column (date / model / option name); keep cells short and push long sentences into a Notes column; use &lt;br&gt; for a line break inside a cell. Still add a sentence outside the table saying what to look at. Conversely, do not force non-tabular content into a table — a table where only one column has content is worse than a list.\n- **The conclusion must land on something the Chair can do tomorrow**, never on a principle or a spec. Stopping at "find a project with numbers" or "buy a compressor type" means the task was not finished.\n- If the question is a what-to-buy / which-one / where-to-go kind that needs a concrete target, add a section before the action items:\n\n## Candidates\n(**Two or three concrete options**, as a table:\n\n| Name or model | Biggest advantage | Biggest drawback | Who it suits | Confidence |\n|---|---|---|---|---|\n\nConfidence is either "certain" or "impression, needs checking". **Immediately below the table, this exact line**: "Models, prices and availability above were not verified live — check them yourself before buying.")\n\n- ⚠️ You have no web access; models and prices come from memory and may be discontinued or wrong — so list one fewer rather than inventing a specific-looking fake. If you genuinely cannot name reliable candidates, say so and give the filtering steps the Chair can use to narrow to three within an hour instead.\n- Do NOT replay the discussion. Never write who said what in which round. Include only conclusions and the reasoning that bears on the decision.\n- Add no substantive claims that did not appear in the meeting; present disagreements as they are — do not force a conclusion.\n- **Every number you yourself put in the decision or the action items must meet the same standard you applied to the directors' numbers**: if you cannot name a source, do not use it as a hard threshold — give a range or mark it as needing verification.` + reportBudget() + rateRules();
   return (strict ? `【格式退回重寫】你上一次的輸出缺少：${strict}。標題行必須原樣保留，心智圖必須放在標示 mindmap 的圍籬區塊裡。\n\n` : "")
-       + `以下為本場會議完整記錄：\n\n${transcript()}\n\n——\n請以中立主持人身分，把本場會議整理成一份決策報告，Markdown 格式，結構如下（標題行原樣保留）：\n\n# 決策報告：〈主題自取〉\n\n## 一頁摘要\n### 結論\n（一到兩句話講完最終建議，不要鋪陳）\n### 行動清單\n（具體可執行，每項附建議時限；沒有就寫「無」）\n### 關鍵風險\n（最多三條，每條一行）` + mindmapSpec() + `\n\n## 補充：這樣決定的考量\n### 支持理由\n（為什麼是這個結論，列點寫）\n### 否決的選項\n（考慮過但不採用的方案，各附一句否決原因）\n### 未解分歧與少數意見\n（誰對什麼仍有異議，照實寫；沒有就寫「無」）\n### 前提假設\n（結論建立在哪些假設上；哪一項被推翻就要重審）\n\n撰寫要求：\n- 「一頁摘要」必須單獨看完就足以行動，重點不得遺漏。\n- **結論必須落到「主席明天可以做的那一步」**，不能停在原則或規格。停在「你該找一個有數字的專案」「你該買壓縮機式」這種層級，等於沒有完成任務。\n- 若本題是「買什麼／選哪一個／去哪裡」這類要落到具體標的的問題，「行動清單」前面要多一段：\n\n## 候選方案\n（**兩到三個具體選項**。每個一行寫出：名稱或型號｜最大優點｜最大缺點｜誰適合。逐項標把握度：（確定）／（印象，需查證）。**最後固定一行**：「以上型號、價格與供貨狀況未經即時查證，下單前請自行核對。」）\n\n- ⚠️ 你沒有上網能力，型號與價格只能來自記憶，可能已停產或記錯——所以寧可少列一個，也不要編一個看起來很具體的假型號。真的想不出可靠候選，就照實寫「無法提供可靠型號」，並改成給出「你自己怎麼在一小時內收斂到三款」的篩選步驟。\n- 不要重述討論過程，不要寫誰在第幾輪說了什麼；只寫結論與影響決策的理由。\n- 不要新增會議中沒出現過的實質主張；分歧照實呈現，不要硬湊結論。\n- **你自己寫進結論或行動清單的每一個數字，要適用你對董事數字的同一套標準**：說不出來源就不要當成硬門檻，改寫成範圍或直接標「需自行查證」。實測發生過——同一份報告否決了董事的「≤38 dB」說來源未明，自己卻用了同樣沒有來源的「10–13 L」當篩選門檻。` + reportBudget() + rateRules();
+       + `以下為本場會議完整記錄：\n\n${transcript()}\n\n——\n請以中立主持人身分，把本場會議整理成一份決策報告，Markdown 格式，結構如下（標題行原樣保留）：\n\n# 決策報告：〈主題自取〉\n\n## 一頁摘要\n### 結論\n（一到兩句話講完最終建議，不要鋪陳）\n### 行動清單\n（具體可執行，每項附建議時限；沒有就寫「無」）\n### 關鍵風險\n（最多三條，每條一行）` + mindmapSpec() + `\n\n## 補充：這樣決定的考量\n### 支持理由\n（為什麼是這個結論，列點寫）\n### 否決的選項\n（考慮過但不採用的方案，各附一句否決原因）\n### 未解分歧與少數意見\n（誰對什麼仍有異議，照實寫；沒有就寫「無」）\n### 前提假設\n（結論建立在哪些假設上；哪一項被推翻就要重審）\n\n撰寫要求：\n- 「一頁摘要」必須單獨看完就足以行動，重點不得遺漏。\n- **資訊本身是表格的，就寫成表格。** 逐日／逐週排程、兩個以上選項的比較、每一項都有同一組欄位的清單——這些用條列寫會逼讀者自己在腦中還原成表格，直接給表格：\n\n| 日期 | 主要內容 | 強度 | 備註 |\n|---|---|---|---|\n| 9/1 | … | … | … |\n\n  規則：**最多五欄**（報告是 A4 直式，第六欄開始會擠成一團）；第一欄放最主要的索引（日期／型號／方案名）；每格盡量壓在 20 字內，講不完的話搬到「備註」欄；同一格要換行就用 &lt;br&gt;。表格外仍要有一兩句話講「這張表要看的是什麼」。反過來，不是表格的東西不要硬排成表格——只有一欄有內容的表格比條列更難讀。\n- **結論必須落到「主席明天可以做的那一步」**，不能停在原則或規格。停在「你該找一個有數字的專案」「你該買壓縮機式」這種層級，等於沒有完成任務。\n- 若本題是「買什麼／選哪一個／去哪裡」這類要落到具體標的的問題，「行動清單」前面要多一段：\n\n## 候選方案\n（**兩到三個具體選項**，寫成表格：\n\n| 名稱或型號 | 最大優點 | 最大缺點 | 誰適合 | 把握度 |\n|---|---|---|---|---|\n\n把握度只填「確定」或「印象，需查證」。**表格下方固定一行**：「以上型號、價格與供貨狀況未經即時查證，下單前請自行核對。」）\n\n- ⚠️ 你沒有上網能力，型號與價格只能來自記憶，可能已停產或記錯——所以寧可少列一個，也不要編一個看起來很具體的假型號。真的想不出可靠候選，就照實寫「無法提供可靠型號」，並改成給出「你自己怎麼在一小時內收斂到三款」的篩選步驟。\n- 不要重述討論過程，不要寫誰在第幾輪說了什麼；只寫結論與影響決策的理由。\n- 不要新增會議中沒出現過的實質主張；分歧照實呈現，不要硬湊結論。\n- **你自己寫進結論或行動清單的每一個數字，要適用你對董事數字的同一套標準**：說不出來源就不要當成硬門檻，改寫成範圍或直接標「需自行查證」。實測發生過——同一份報告否決了董事的「≤38 dB」說來源未明，自己卻用了同樣沒有來源的「10–13 L」當篩選門檻。` + reportBudget() + rateRules();
 }
 // 存純文字檔。優先用 showSaveFilePicker 讓主席自己決定位置與檔名——
 // ⚠️ 它要求「使用者手勢尚未過期」（Chrome 約 5 秒），所以只能掛在按鈕上，
@@ -5605,8 +5616,11 @@ function exportPdf(msg){
   h4{ font-size:12.5pt; color:#0D1B3D; margin:14px 0 6px; padding-left:10px; border-left:4px solid #F5A623; }
   h5{ font-size:11.5pt; color:#008B8B; margin:10px 0 4px; }
   p{ margin:6px 0; } ul,ol{ margin:6px 0 6px 22px; } li{ margin:3px 0; }
-  table{ width:100%; border-collapse:collapse; font-size:9.5pt; margin:8px 0; }
-  th,td{ border:1px solid #dde3ec; padding:5px 8px; text-align:left; vertical-align:top; }
+  table{ width:100%; border-collapse:collapse; font-size:9.5pt; margin:10px 0; word-break:break-word; }
+  th,td{ border:1px solid #e3e8ef; padding:6px 8px; text-align:left; vertical-align:top; line-height:1.55; }
+  thead{ display:table-header-group; }          /* 表格跨頁時，表頭每一頁都重印 */
+  tbody tr:nth-child(even) td{ background:#F7F9FC; }
+  tbody td:first-child{ font-weight:600; color:#0D1B3D; white-space:nowrap; }
   /* ⚠️ 心智圖的顏色走 CSS class，而這份 PDF 樣板是另一套 CSS——沒有這幾行的話，
      SVG 會用預設的黑色填滿，整張圖印出來是一片黑（靜態檢查抓到，沒等使用者踩）。 */
   .mm{ margin:10px 0; text-align:center; page-break-inside:avoid; }
@@ -5615,7 +5629,7 @@ function exportPdf(msg){
   .mm .mm-root{ fill:#0D1B3D; stroke:#0D1B3D; }
   .mm .mm-tx{ fill:#1c2430; }
   .mm .mm-rtx{ fill:#fff; }
-  th{ background:#F5F7FA; color:#0D1B3D; }
+  th{ background:#0D1B3D; color:#fff; border-color:#0D1B3D; font-weight:700; white-space:nowrap; }
   blockquote{ border-left:4px solid #dde3ec; padding-left:10px; color:#6B7280; margin:6px 0; }
   pre{ background:#F5F7FA; border-radius:6px; padding:8px 10px; font-size:9pt; overflow-x:auto; }
   hr{ border:none; border-top:1px solid #dde3ec; margin:12px 0; }
@@ -5718,9 +5732,12 @@ function exportMeetingPdf(){
   h4{ font-size:11.5pt; color:#0D1B3D; margin:10px 0 4px; padding-left:8px; border-left:3px solid #F5A623; }
   h5{ font-size:10.5pt; color:#008B8B; margin:8px 0 3px; }
   p{ margin:5px 0; } ul,ol{ margin:5px 0 5px 20px; } li{ margin:2px 0; }
-  table{ width:100%; border-collapse:collapse; font-size:9pt; margin:6px 0; }
-  th,td{ border:1px solid #dde3ec; padding:4px 7px; text-align:left; vertical-align:top; }
-  th{ background:#F5F7FA; color:#0D1B3D; }
+  table{ width:100%; border-collapse:collapse; font-size:9pt; margin:8px 0; word-break:break-word; }
+  th,td{ border:1px solid #e3e8ef; padding:5px 7px; text-align:left; vertical-align:top; line-height:1.5; }
+  thead{ display:table-header-group; }
+  th{ background:#0D1B3D; color:#fff; border-color:#0D1B3D; font-weight:700; white-space:nowrap; }
+  tbody tr:nth-child(even) td{ background:#F7F9FC; }
+  tbody td:first-child{ font-weight:600; color:#0D1B3D; white-space:nowrap; }
   blockquote{ border-left:4px solid #dde3ec; padding-left:10px; color:#6B7280; margin:5px 0; }
   pre{ background:#F5F7FA; border-radius:6px; padding:8px 10px; font-size:8.5pt; overflow-x:auto; }
   tr{ break-inside:avoid; } .mh{ break-after:avoid; }
