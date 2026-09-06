@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://board.fervela.ai/sitemap.xml
