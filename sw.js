@@ -1,9 +1,9 @@
-/* build 0921-de993b */
+/* build 0922-7ff8f9 */
 /* AI 董事會 PWA — Service Worker
  * 只做「離線也打得開殼」這一件事。
  * ⚠️ 絕不快取任何 API 回應——那裡面有會議內容，而且快取住的錯誤答案比沒答案更糟。
  */
-const CACHE = "aib-shell-0921-de993b";
+const CACHE = "aib-shell-0922-7ff8f9";
 const SHELL = ["./", "./index.html", "./manifest.webmanifest"];
 
 self.addEventListener("install", e => {
